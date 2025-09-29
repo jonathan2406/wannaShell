@@ -129,42 +129,6 @@ Este proyecto forma parte de las actividades del **Semillero de Investigación e
 
 ---
 
-```
-
-### 🔄 **Flujo de Datos**
-
-#### **Modo Online (Preferido):**
-```
-Usuario → App → API → Validación → Base de Datos → Respuesta → Cache Local → UI
-```
-
-#### **Modo Offline (Respaldo):**
-```
-Usuario → App → Cache Local → SQLite → Respuesta → UI → [Sync Pendiente]
-```
-
-## 🚀 **Instalación y Configuración**
-
-### 📋 **Prerrequisitos**
-
-#### **Para el Frontend:**
-- 📱 **Flutter SDK**: 3.10.0 o superior
-- 🎯 **Dart SDK**: 3.0.0 o superior  
-- 🔧 **Android Studio** o **VS Code** con extensiones Flutter
-- 📱 **Dispositivo/Emulador** Android/iOS
-
-#### **Para el Backend:**
-- 🟢 **Node.js**: 16.0.0 o superior
-- 📦 **npm**: Incluido con Node.js
-
-### ⚡ **Instalación Rápida**
-
-#### **1. Clonar el Repositorio**
-```bash
-git clone https://github.com/tu-usuario/cybersec-cc-client.git
-cd cybersec-cc-client
-```
-
 #### **2. Configurar Backend**
 ```bash
 cd backend
