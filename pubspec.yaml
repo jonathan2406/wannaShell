@@ -1,0 +1,49 @@
+name: cybersec_cc_client
+description: "Aplicación móvil Flutter para laboratorio de ciberseguridad - Cliente C&C educativo"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # Gestión de estado
+  provider: ^6.1.1
+  
+  # HTTP y API REST
+  http: ^1.1.0
+  dio: ^5.3.2
+  
+  # Base de datos local
+  sqflite: ^2.3.0
+  path: ^1.8.3
+  
+  # Utilidades
+  intl: ^0.20.2
+  shared_preferences: ^2.2.2
+  
+  # UI y validaciones
+  flutter_form_builder: ^10.2.0
+  form_builder_validators: ^11.2.0
+  
+  # Iconos y UI
+  cupertino_icons: ^1.0.2
+  flutter_slidable: ^4.0.3
+  
+  # JSON
+  json_annotation: ^4.8.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  flutter_lints: ^6.0.0
+  json_serializable: ^6.7.1
+  build_runner: ^2.4.7
+
+flutter:
+  uses-material-design: true
