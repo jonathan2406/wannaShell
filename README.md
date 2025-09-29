@@ -16,6 +16,14 @@
 
 ---
 
+##  **Link del video Explicativo**
+https://drive.google.com/file/d/1rHpdldww_r3uJ4akWjTvtfWPd_Cx0fsb/view?usp=sharing
+
+
+---
+
+---
+
 ## 🚨 **ADVERTENCIA IMPORTANTE**
 
 > **⚠️ SOLO PARA FINES EDUCATIVOS ⚠️**
