@@ -475,12 +475,8 @@ app.use((error, req, res, next) => {
 // Iniciar el servidor
 app.listen(PORT, () => {
   console.log(`
-🚀 Servidor CyberSec C&C API iniciado exitosamente
+🚀 Servidor WannaShell C&C API iniciado exitosamente
 📍 URL: http://localhost:${PORT}
-📊 Health Check: http://localhost:${PORT}/api/health
-📚 Documentación: Ver README.md para endpoints disponibles
-🔒 Modo: Desarrollo (Solo para fines educativos)
-⚠️  ADVERTENCIA: Esta API es solo para entrenamiento en entornos controlados
 `);
 });
 
