@@ -96,7 +96,7 @@ Este proyecto forma parte de las actividades del **Semillero de Investigación e
 - **🔍 Búsqueda Avanzada**: Filtros por IP, nombre de máquina y estado
 - **📱 Responsive Design**: Adaptable a tablets y diferentes orientaciones
 
-### 🌐 **API REST Robusta**
+### 🌐 **API REST**
 - **⚡ Node.js/Express**: Backend escalable y eficiente
 - **🔒 Seguridad Integrada**: Rate limiting, validación con Joi, headers seguros
 - **📊 8+ Endpoints**: CRUD completo + funcionalidades especializadas
@@ -183,10 +183,6 @@ flutter pub run build_runner build
 ```bash
 flutter run
 ```
-
-
-
-
 
 
 ---
@@ -289,57 +285,6 @@ Content-Type: application/json
 - ✅ Datos inválidos del servidor
 - ✅ Operaciones concurrentes
 
-### 🔍 **Herramientas de Testing Sugeridas**
-
-#### **Para la API:**
-```bash
-# Usar curl para testing manual
-curl -X GET http://localhost:3000/api/health
-
-# Usar Postman para testing completo
-# Importar colección de endpoints desde docs/
-```
-
-#### **Para la Aplicación:**
-```bash
-# Tests unitarios Flutter
-flutter test
-
-# Tests de integración
-flutter drive --target=test_driver/app.dart
-```
-
-
-
-
----
-
-## 🎥 **Demo y Capturas de Pantalla**
-
-### 📹 **Video de Demostración**
-> 🎬 **[Ver Demo Completa en YouTube](https://youtube.com/tu-video-demo)**
-> 
-> El video incluye:
-> - ✅ Configuración inicial del proyecto
-> - ✅ Navegación entre pantallas principales
-> - ✅ Creación y gestión de sesiones C&C
-> - ✅ Ejecución de comandos simulados
-> - ✅ Funcionalidades offline y sincronización
-> - ✅ Monitoreo de estadísticas en tiempo real
-
-### 📸 **Galería de Pantallas**
-
-<div align="center">
-
-| 📋 Lista de Sesiones | 📄 Detalle y Comandos | ➕ Formulario de Creación |
-|:---:|:---:|:---:|
-| ![Lista](docs/screenshots/session-list.png) | ![Detalle](docs/screenshots/session-detail.png) | ![Formulario](docs/screenshots/session-form.png) |
-
-| 📊 Dashboard Estadísticas | ⚙️ Configuración | 🎨 Tema Oscuro |
-|:---:|:---:|:---:|
-| ![Estadísticas](docs/screenshots/statistics.png) | ![Configuración](docs/screenshots/settings.png) | ![Tema Oscuro](docs/screenshots/dark-theme.png) |
-
-</div>
 
 ---
 
