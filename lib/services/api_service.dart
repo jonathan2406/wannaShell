@@ -12,11 +12,14 @@ class ApiService {
   factory ApiService() => _instance;
   ApiService._internal();
 
-  late final Dio _dio;
-  String _baseUrl = 'http://localhost:3000/api'; // URL por defecto del backend
+  Dio? _dio;
+  String _baseUrl = 'http://10.0.2.2:3000/api'; // URL para emulador Android (10.0.2.2 = localhost del host)
+  bool _isInitialized = false;
 
   /// Inicializa el servicio API
   Future<void> initialize() async {
+    if (_isInitialized) return; // Evitar doble inicialización
+    
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
       connectTimeout: const Duration(seconds: 10),
@@ -28,14 +31,14 @@ class ApiService {
     ));
 
     // Interceptor para logging en desarrollo
-    _dio.interceptors.add(LogInterceptor(
+    _dio!.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
       logPrint: (obj) => print('[API] $obj'),
     ));
 
     // Interceptor para manejo de errores
-    _dio.interceptors.add(InterceptorsWrapper(
+    _dio!.interceptors.add(InterceptorsWrapper(
       onError: (error, handler) {
         print('[API Error] ${error.message}');
         handler.next(error);
@@ -44,6 +47,8 @@ class ApiService {
 
     // Cargar URL personalizada si existe
     await _loadCustomBaseUrl();
+    
+    _isInitialized = true; // Marcar como inicializado
   }
 
   /// Carga la URL base personalizada desde SharedPreferences
@@ -62,7 +67,7 @@ class ApiService {
   /// Establece una nueva URL base para la API
   Future<void> setBaseUrl(String url) async {
     _baseUrl = url;
-    _dio.options.baseUrl = url;
+    _dio?.options.baseUrl = url;
 
     // Guardar en SharedPreferences
     try {
@@ -76,10 +81,18 @@ class ApiService {
   /// Obtiene la URL base actual
   String get baseUrl => _baseUrl;
 
+  /// Obtiene la instancia de Dio de forma segura
+  Dio get dio {
+    if (_dio == null) {
+      throw StateError('ApiService no inicializado. Llama a initialize() primero.');
+    }
+    return _dio!;
+  }
+
   /// Verifica la conectividad con el servidor
   Future<ApiResponse<bool>> checkConnection() async {
     try {
-      final response = await _dio.get('/health');
+      final response = await dio.get('/health');
       return ApiResponse.success(response.statusCode == 200);
     } catch (e) {
       return ApiResponse.error('Error de conexión: ${_getErrorMessage(e)}');
@@ -108,7 +121,7 @@ class ApiService {
       }
 
       final response =
-          await _dio.get('/sessions', queryParameters: queryParams);
+          await dio.get('/sessions', queryParameters: queryParams);
 
       final List<dynamic> sessionsJson =
           response.data['sessions'] ?? response.data;
@@ -126,7 +139,7 @@ class ApiService {
   /// Obtiene una sesión específica por ID
   Future<ApiResponse<CCSession>> getSession(String id) async {
     try {
-      final response = await _dio.get('/sessions/$id');
+      final response = await dio.get('/sessions/$id');
       final session = _apiJsonToSession(response.data);
       return ApiResponse.success(session);
     } catch (e) {
@@ -142,7 +155,7 @@ class ApiService {
       final apiData = _sessionToApiJson(session);
       print('[API] Enviando datos: $apiData'); // Debug
 
-      final response = await _dio.post('/sessions', data: apiData);
+      final response = await dio.post('/sessions', data: apiData);
       final createdSession = _apiJsonToSession(response.data);
       return ApiResponse.success(createdSession);
     } catch (e) {
@@ -157,7 +170,7 @@ class ApiService {
       // Convertir sesión a formato compatible con API
       final apiData = _sessionToApiJson(session);
 
-      final response = await _dio.put('/sessions/${session.id}', data: apiData);
+      final response = await dio.put('/sessions/${session.id}', data: apiData);
       final updatedSession = _apiJsonToSession(response.data);
       return ApiResponse.success(updatedSession);
     } catch (e) {
@@ -169,7 +182,7 @@ class ApiService {
   /// Elimina una sesión
   Future<ApiResponse<bool>> deleteSession(String id) async {
     try {
-      await _dio.delete('/sessions/$id');
+      await dio.delete('/sessions/$id');
       return ApiResponse.success(true);
     } catch (e) {
       return ApiResponse.error(
@@ -181,7 +194,7 @@ class ApiService {
   Future<ApiResponse<CCSession>> executeCommand(
       String sessionId, String command) async {
     try {
-      final response = await _dio.post(
+      final response = await dio.post(
         '/sessions/$sessionId/command',
         data: {'command': command},
       );
@@ -199,7 +212,7 @@ class ApiService {
   /// Obtiene estadísticas del sistema C&C
   Future<ApiResponse<Map<String, dynamic>>> getStatistics() async {
     try {
-      final response = await _dio.get('/statistics');
+      final response = await dio.get('/statistics');
       return ApiResponse.success(response.data);
     } catch (e) {
       return ApiResponse.error(
@@ -210,7 +223,7 @@ class ApiService {
   /// Termina todas las sesiones activas
   Future<ApiResponse<bool>> terminateAllSessions() async {
     try {
-      await _dio.post('/sessions/terminate-all');
+      await dio.post('/sessions/terminate-all');
       return ApiResponse.success(true);
     } catch (e) {
       return ApiResponse.error(
@@ -221,7 +234,7 @@ class ApiService {
   /// Obtiene el historial de comandos de una sesión
   Future<ApiResponse<List<String>>> getCommandHistory(String sessionId) async {
     try {
-      final response = await _dio.get('/sessions/$sessionId/history');
+      final response = await dio.get('/sessions/$sessionId/history');
       final List<dynamic> history = response.data['history'] ?? [];
       return ApiResponse.success(history.cast<String>());
     } catch (e) {
@@ -344,7 +357,7 @@ class ApiService {
   void cancelAllRequests() {
     // Cerrar el cliente Dio si es necesario
     try {
-      _dio.close();
+      _dio?.close();
     } catch (e) {
       print('[API] Error cerrando conexiones: $e');
     }

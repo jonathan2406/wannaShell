@@ -103,7 +103,7 @@ class _SessionFormScreenState extends State<SessionFormScreen> {
 
     if (widget.isEditing) {
       await sessionProvider.updateSession(sessionData);
-      
+  
       if (sessionProvider.updateState.isSuccess) {
         if (mounted) {
           Navigator.pop(context, sessionData);

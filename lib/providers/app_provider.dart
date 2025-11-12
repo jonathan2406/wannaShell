@@ -8,7 +8,7 @@ class AppProvider extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.system;
   
   // Configuración de API
-  String _apiBaseUrl = 'http://localhost:3000/api';
+  String _apiBaseUrl = 'http://10.0.2.2:3000/api';
   bool _isOfflineMode = false;
   bool _isApiConnected = false;
   
@@ -55,7 +55,7 @@ class AppProvider extends ChangeNotifier {
       _themeMode = ThemeMode.values[themeIndex];
       
       // Cargar configuración de API
-      _apiBaseUrl = prefs.getString('api_base_url') ?? 'http://localhost:3000/api';
+      _apiBaseUrl = prefs.getString('api_base_url') ?? 'http://10.0.2.2:3000/api';
       _isOfflineMode = prefs.getBool('offline_mode') ?? false;
       
     } catch (e) {
