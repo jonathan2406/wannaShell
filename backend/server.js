@@ -476,6 +476,7 @@ app.use((error, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`
 🚀 Servidor WannaShell C&C API iniciado exitosamente
+🚀 Servidor WannaShell C&C API iniciado exitosamente
 📍 URL: http://localhost:${PORT}
 📊 Health Check: http://localhost:${PORT}/api/health
 `);
